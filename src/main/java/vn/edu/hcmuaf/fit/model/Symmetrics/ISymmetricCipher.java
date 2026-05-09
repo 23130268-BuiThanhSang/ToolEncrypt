@@ -5,8 +5,8 @@ public interface ISymmetricCipher {
     public String encrypt(String plainText, String key);
     public String decrypt(String cipherText, String key);
 //    this is method for File
-    public void encryptFile(String srcFilePath, String destFilePath, String key);
-    public void decryptFile(String srcFilePath, String destFilePath, String key);
+    public void encryptFile(String srcFilePath, String destFilePath, String key)throws Exception;
+    public void decryptFile(String srcFilePath, String destFilePath, String key)throws Exception;
 //    this is method generate key while user no create key
     public String generatekey(int keysize);
 }
