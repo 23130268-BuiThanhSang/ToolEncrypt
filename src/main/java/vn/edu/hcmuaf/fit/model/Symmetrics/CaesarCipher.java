@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Random;
 
-public class Caesar implements ISymmetricCipher {
+public class CaesarCipher implements ISymmetricCipher {
     /**
      * this is method encrypt Text with Caesar cipher, use multiple language
      *
@@ -71,7 +71,6 @@ public class Caesar implements ISymmetricCipher {
      * @param destFilePath
      * @param key
      */
-    @Override
     public void encryptFile(String srcFilePath, String destFilePath, String key) throws IOException {
         processFile(srcFilePath, destFilePath, key, true);
     }
@@ -83,7 +82,6 @@ public class Caesar implements ISymmetricCipher {
      * @param destFilePath
      * @param key
      */
-    @Override
     public void decryptFile(String srcFilePath, String destFilePath, String key) throws IOException {
         processFile(srcFilePath, destFilePath, key, false);
     }
@@ -125,7 +123,7 @@ public class Caesar implements ISymmetricCipher {
     @Override
     public String generatekey(int keysize) {
         Random random = new Random();
-        int key = random.nextInt(256);
+        int key = random.nextInt(255)+1;
         return String.valueOf(key);
     }
 }
