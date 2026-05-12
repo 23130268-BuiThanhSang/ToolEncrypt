@@ -2,12 +2,9 @@ package vn.edu.hcmuaf.fit.View;
 
 import vn.edu.hcmuaf.fit.Controller.CaesarController;
 import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.CaesarPanel;
-import vn.edu.hcmuaf.fit.model.Symmetrics.CaesarCipher;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
     private JPanel cards;
@@ -81,7 +78,7 @@ public class MainView extends JFrame {
          * - connect view to controller for classical algorithm
          */
         CaesarPanel caesarPanel = classicalPanel.getCaesarPanel();
-        CaesarController caesarController = new CaesarController(caesarPanel);
+        CaesarController caesarController = new CaesarController(caesarPanel, classicalPanel);
 
 
 

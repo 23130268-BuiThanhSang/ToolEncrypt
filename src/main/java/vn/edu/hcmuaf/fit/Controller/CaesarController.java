@@ -1,20 +1,25 @@
 package vn.edu.hcmuaf.fit.Controller;
 
+import vn.edu.hcmuaf.fit.View.ClassicalPanel;
 import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.CaesarPanel;
-import vn.edu.hcmuaf.fit.model.Symmetrics.CaesarCipher;
+import vn.edu.hcmuaf.fit.model.Classicals.CaesarCipher;
 
+import javax.crypto.Cipher;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 
 public class CaesarController {
     private CaesarCipher model;
     private CaesarPanel view;
+    private ClassicalPanel parent;
 
-    public CaesarController( CaesarPanel view) {
+    public CaesarController(CaesarPanel view, ClassicalPanel parent) {
         this.model = new CaesarCipher();
         this.view = view;
+        this.parent = parent;
 
         handleEvents();
     }
@@ -24,24 +29,34 @@ public class CaesarController {
         view.getEncryptButton().addActionListener(e -> {
             try {
                 String plaintText = view.getInput().getText();
-                String key = view.getKey().getText();
+                String strkey = view.getKey().getText();
+                String languege = parent.getSelectedLanguage();
+
+                if (!validateInPut(plaintText, languege)){
+                    showError("Nội dung không hợp lệ với ngôn ngữ đã chọn, Xin vui lòng thử lại !");
+                    return;
+                }
+
+                if (strkey.isEmpty()) {
+                    showError("Bạn hãy nhập khóa của bạn hoặc có thể chọn Generate key ngẫu nhiên");
+                    return;
+                }
+                int key = model.normalizeKey(strkey, languege);
 
                 if (plaintText.isEmpty()) {
                     showError("Bạn hãy nhập nôi dung cần mã hóa");
                     return;
                 }
 
-                if (key.isEmpty()) {
-                    showError("Bạn hãy nhập khóa của bạn hoặc có thể chọn Generate key ngẫu nhiên");
-                    return;
-                }
 
-                String result = model.encrypt(plaintText, key);
+
+                String result = model.encrypt(plaintText,languege,String.valueOf(key));
 
                 view.getOutput().setText(result);
-            } catch (Exception ex) {
-                showError("Key không hợp lệ !");
+            }catch (NumberFormatException ex){
+                showError("Key phải là một số nguyên !");
             }
+
         });
 
 
@@ -49,22 +64,33 @@ public class CaesarController {
         view.getDecryptButton().addActionListener(e -> {
             try {
                 String cipherText = view.getInput().getText();
-                String key = view.getKey().getText();
+                String strkey = view.getKey().getText();
+                String language = parent.getSelectedLanguage();
+
+
+                if (!validateInPut(cipherText, language)){
+                    showError("Nội dung không hợp lệ với ngôn ngữ đã chọn, Xin vui lòng thử lại !");
+                    return;
+                }
+
+                if (strkey.isEmpty()) {
+                    showError("Bạn hãy nhập khóa của bạn hoặc có thể chọn Generate key ngẫu nhiên");
+                    return;
+                }
+
+                int key = model.normalizeKey(strkey, language);
 
                 if (cipherText.isEmpty()) {
                     showError("Bạn hãy nhập nôi dung cần giải mã");
                     return;
                 }
 
-                if (key.isEmpty()) {
-                    showError("Bạn hãy nhập khóa của bạn hoặc có thể chọn Generate key ngẫu nhiên");
-                    return;
-                }
 
-                String result = model.decrypt(cipherText, key);
+
+                String result = model.decrypt(cipherText,language,String.valueOf(key));
                 view.getOutput().setText(result);
-            }catch (Exception ex){
-                showError("sai key hoặc sai định dạng của cipherText(Base64), Xin vui lòng thử lại !)");
+            }catch (NumberFormatException ex){
+                showError("Key phải là một số nguyên !");
             }
         });
 
@@ -77,7 +103,8 @@ public class CaesarController {
 
         // process for genKey
         view.getGenKeyButton().addActionListener(e -> {;
-            String key = model.generatekey(0);
+            String language = parent.getSelectedLanguage();
+            String key = model.generateKey(language);
             view.getKey().setText(key);
         });
 
@@ -103,7 +130,75 @@ public class CaesarController {
                }
            }
         });
+
+        // process for import key
+        view.getImportKeyButton().addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            int result = chooser.showOpenDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    File file = chooser.getSelectedFile();
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    String key = reader.readLine();
+                    reader.close();
+                    view.getKey().setText(key);
+                }catch (Exception ex){
+                    showError("không thể thực hiện import Key");
+                }
+            }
+        });
+
+            // process for export key
+        view.getExportKeyButton().addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            int result = chooser.showSaveDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try{
+                    File file = chooser.getSelectedFile();
+                    FileWriter writer = new FileWriter(file);
+                    writer.write(view.getKey().getText());
+                    writer.close();
+
+                    JOptionPane.showMessageDialog(null, "Export key thành công !");
+                } catch (Exception ex) {
+                    showError("không thể thực hiện export key");
+                }
+            }
+        });
     }
+
+    private boolean validateInPut(String plaintText, String languege) {
+        if (languege.equalsIgnoreCase("English")) {
+            for(char c : plaintText.toCharArray()) {
+                if (isVietNameseChar(c)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean isVietNameseChar(char c) {
+        String vietNameseChars ="aáàảãạâấầẩẫậăắằẳẵặ" +
+                "bcdđ" +
+                "eéèẻẽẹêếềểễệ" +
+                "ghiíìỉĩị" +
+                "klmnoóòỏõọôốồổỗộơớờởỡợ" +
+                "pqrstuúùủũụưứừửữự" +
+                "vwx" +
+                "yýỳỷỹỵ" +
+                "AÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶ" +
+                "BCDĐ" +
+                "EÉÈẺẼẸÊẾỀỂỄỆ" +
+                "GHIÍÌỈĨỊ" +
+                "KLMNOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢ" +
+                "PQRSTUÚÙỦŨỤƯỨỪỬỮỰ" +
+                "VWX" +
+                "YÝỲỶỸỴ";
+        return vietNameseChars.indexOf(c) != -1;
+    }
+
+
 
     private void showError(String mesage) {
         JOptionPane.showMessageDialog(null, mesage);

@@ -6,7 +6,7 @@ import java.awt.*;
 public class CaesarPanel extends JPanel {
     private JTextArea input,output;
     private JTextField key;
-    private JButton encryptButton, decryptButton, loadFileButton, clearButton, genKeyButton;
+    private JButton encryptButton, decryptButton, loadFileButton, clearButton, genKeyButton, importKeyButton, exportKeyButton;
     private JLabel title;
     private JScrollPane inputScroll, outputScroll;
     public CaesarPanel() {
@@ -46,7 +46,12 @@ public class CaesarPanel extends JPanel {
         key = new JTextField(10);
         keyPanel.add(key);
         genKeyButton = new JButton("Generate Key");
+        importKeyButton = new JButton("Import Key");
+        exportKeyButton = new JButton("Export Key");
+
         keyPanel.add(genKeyButton);
+        keyPanel.add(importKeyButton);
+        keyPanel.add(exportKeyButton);
 
         // pannel for button
 
@@ -90,5 +95,11 @@ public class CaesarPanel extends JPanel {
     }
     public JButton getGenKeyButton() {
         return genKeyButton;
+    }
+    public JButton getImportKeyButton() {
+        return importKeyButton;
+    }
+    public JButton getExportKeyButton() {
+        return exportKeyButton;
     }
 }
