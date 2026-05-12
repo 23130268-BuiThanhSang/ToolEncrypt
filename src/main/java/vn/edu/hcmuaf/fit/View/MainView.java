@@ -1,6 +1,8 @@
 package vn.edu.hcmuaf.fit.View;
 
+import vn.edu.hcmuaf.fit.Controller.AffineController;
 import vn.edu.hcmuaf.fit.Controller.CaesarController;
+import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.AffinePanel;
 import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.CaesarPanel;
 
 import javax.swing.*;
@@ -79,7 +81,8 @@ public class MainView extends JFrame {
          */
         CaesarPanel caesarPanel = classicalPanel.getCaesarPanel();
         CaesarController caesarController = new CaesarController(caesarPanel, classicalPanel);
-
+        AffinePanel affinePannel = classicalPanel.getAffinePanel();
+        AffineController affineController = new AffineController(affinePannel, classicalPanel);
 
 
         setVisible(true);

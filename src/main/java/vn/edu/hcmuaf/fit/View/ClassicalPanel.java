@@ -85,4 +85,7 @@ public class ClassicalPanel extends JPanel {
     public String getSelectedLanguage() {
         return (String) languageComboBox.getSelectedItem();
     }
+    public AffinePanel getAffinePanel() {
+        return affinePanel;
+    }
 }
