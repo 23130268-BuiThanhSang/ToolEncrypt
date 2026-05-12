@@ -113,6 +113,7 @@ public class CaesarCipher {
         return (r < 0) ? r + mod : r;
     }
 
+    // procewss for generate key
     public String generateKey(String language) {
         int mod = isVietnameseMode(language)
                 ? VI_LOWER.length()

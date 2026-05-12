@@ -33,7 +33,7 @@ public class CaesarController {
                 String languege = parent.getSelectedLanguage();
 
                 if (!validateInPut(plaintText, languege)){
-                    showError("Nội dung không hợp lệ với ngôn ngữ đã chọn, Xin vui lòng thử lại !");
+                    showError("nội dung khác mẫu ngôn ngữ , Xin vui lòng thử lại !");
                     return;
                 }
 
@@ -69,7 +69,7 @@ public class CaesarController {
 
 
                 if (!validateInPut(cipherText, language)){
-                    showError("Nội dung không hợp lệ với ngôn ngữ đã chọn, Xin vui lòng thử lại !");
+                    showError("nội dung khác mẫu ngôn ngữ , Xin vui lòng thử lại !");
                     return;
                 }
 
