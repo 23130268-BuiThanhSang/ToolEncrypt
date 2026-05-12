@@ -60,7 +60,10 @@ public class AffineController {
                 String result = model.encrypt(plainttex, languaguee,String.valueOf(a), bStr);
                 view.getOutput().setText(result);
 
-            } catch (Exception ex) {
+            }catch (NumberFormatException ex) {
+                showError("Key A và Key B phải là số nguyên, vui lòng nhập lại!");
+            }
+            catch (Exception ex) {
                 showError("Lỗi khi mã hóa Affine!");
             }
         });
@@ -101,7 +104,10 @@ public class AffineController {
                 String result = model.decrypt(Ciphertext, language, String.valueOf(a), bStr);
                 view.getOutput().setText(result);
 
-            } catch (Exception ex) {
+            }catch (NumberFormatException ex) {
+                showError("Key A và Key B phải là số nguyên, vui lòng nhập lại!");
+            }
+            catch (Exception ex) {
                 showError("Lỗi khi giải mã Affine!");
             }
         });
