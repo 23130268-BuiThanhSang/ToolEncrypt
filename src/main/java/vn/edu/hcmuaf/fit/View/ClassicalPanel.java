@@ -88,4 +88,7 @@ public class ClassicalPanel extends JPanel {
     public AffinePanel getAffinePanel() {
         return affinePanel;
     }
+    public VigenerePanel getVigenerePanel() {
+        return vigenerePanel;
+    }
 }
