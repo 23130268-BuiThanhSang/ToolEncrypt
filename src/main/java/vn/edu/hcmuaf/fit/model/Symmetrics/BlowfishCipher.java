@@ -11,30 +11,29 @@ import java.io.FileOutputStream;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-public class DESCipher {
+public class BlowfishCipher {
 
     // process encrypt for text
     public String encryptText(String plaintText, String mode, String padding, String strkey, String striv) throws Exception {
-        String transformation = "DES/" + mode + "/" + padding;
+        String transformation = "Blowfish/" + mode + "/" + padding;
         Cipher cipher = Cipher.getInstance(transformation);
         SecretKey secretKey = getSecretKeyFromString(strkey);
-
         if (mode.equals("ECB")) {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
         } else {
             IvParameterSpec ivSpec = getIvFromString(striv);
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
         }
-
         byte[] byteEncrypted = cipher.doFinal(plaintText.getBytes("UTF-8"));
         return Base64.getEncoder().encodeToString(byteEncrypted);
     }
 
     // process decrypt for text
     public String decryptText(String cipherText, String mode, String padding, String strkey, String striv) throws Exception {
-        String transformation = "DES/" + mode + "/" + padding;
+        String transformation = "Blowfish/" + mode + "/" + padding;
         Cipher cipher = Cipher.getInstance(transformation);
         SecretKey secretKey = getSecretKeyFromString(strkey);
+
 
         if (mode.equals("ECB")) {
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
@@ -49,9 +48,10 @@ public class DESCipher {
 
     // process encrypt for file
     public void encryptFile(String sourceFile, String destFile, String mode, String padding, String strkey, String striv) throws Exception {
-        String transformation = "DES/" + mode + "/" + padding;
+        String transformation = "Blowfish/" + mode + "/" + padding;
         Cipher cipher = Cipher.getInstance(transformation);
         SecretKey secretKey = getSecretKeyFromString(strkey);
+
 
         if (mode.equals("ECB")) {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
@@ -60,9 +60,12 @@ public class DESCipher {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
         }
 
+
         FileInputStream fis = new FileInputStream(sourceFile);
         FileOutputStream fos = new FileOutputStream(destFile);
         CipherOutputStream cos = new CipherOutputStream(fos, cipher);
+
+
 
         byte[] buffer = new byte[4096];
         int bytesRead;
@@ -77,9 +80,10 @@ public class DESCipher {
 
     // process decrypt for file
     public void decryptFile(String sourceFile, String destFile, String mode, String padding, String strkey, String striv) throws Exception {
-        String transformation = "DES/" + mode + "/" + padding;
+        String transformation = "Blowfish/" + mode + "/" + padding;
         Cipher cipher = Cipher.getInstance(transformation);
         SecretKey secretKey = getSecretKeyFromString(strkey);
+
 
         if (mode.equals("ECB")) {
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
@@ -94,6 +98,7 @@ public class DESCipher {
 
         byte[] buffer = new byte[4096];
         int bytesRead;
+
         while ((bytesRead = fis.read(buffer)) != -1) {
             cos.write(buffer, 0, bytesRead);
         }
@@ -103,17 +108,17 @@ public class DESCipher {
         fis.close();
     }
 
-    // procewss for generate key d
+    // procewss for generate key
     public String generateKey(int keySize) throws Exception {
-        KeyGenerator keyGen = KeyGenerator.getInstance("DES");
-        keyGen.init(56);
+        KeyGenerator keyGen = KeyGenerator.getInstance("Blowfish");
+        keyGen.init(keySize);
+
         SecretKey secretKey = keyGen.generateKey();
         return Base64.getEncoder().encodeToString(secretKey.getEncoded());
     }
 
     // process for generate IV
     public String generateIV() {
-        // IV DES 8 byte
         byte[] ivBytes = new byte[8];
         SecureRandom random = new SecureRandom();
         random.nextBytes(ivBytes);
@@ -122,7 +127,7 @@ public class DESCipher {
 
     private SecretKey getSecretKeyFromString(String strkey) {
         byte[] decodedKey = Base64.getDecoder().decode(strkey);
-        return new SecretKeySpec(decodedKey, 0, decodedKey.length, "DES");
+        return new SecretKeySpec(decodedKey, 0, decodedKey.length, "Blowfish");
     }
 
     private IvParameterSpec getIvFromString(String striv) {

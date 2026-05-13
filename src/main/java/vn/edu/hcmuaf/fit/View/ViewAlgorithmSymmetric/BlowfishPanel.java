@@ -3,7 +3,7 @@ package vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric;
 import javax.swing.*;
 import java.awt.*;
 
-public class DESPanel extends JPanel {
+public class BlowfishPanel extends JPanel {
 
     private JComboBox<String> modeComboBox, paddingComboBox, keySizeComboBox;
     private JTextArea textInput, textOutput;
@@ -13,11 +13,12 @@ public class DESPanel extends JPanel {
     private JButton encryptFileBtn, decryptFileBtn, clearFileBtn;
     private JButton genKeyFileBtn, importKeyFileBtn, exportKeyFileBtn;
 
-    public DESPanel() {
+    public BlowfishPanel() {
         setLayout(new BorderLayout(10, 10));
 
         // process choose mode, padđing, keysize
-        JPanel configPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel configPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        configPanel.setBorder(BorderFactory.createTitledBorder("Blowfish Configuration"));
         configPanel.add(new JLabel("Mode:"));
         modeComboBox = new JComboBox<>(new String[]{"ECB", "CBC", "CFB", "OFB"});
         configPanel.add(modeComboBox);
@@ -26,14 +27,16 @@ public class DESPanel extends JPanel {
         paddingComboBox = new JComboBox<>(new String[]{"PKCS5Padding", "ISO10126Padding"});
         configPanel.add(paddingComboBox);
 
+
         configPanel.add(new JLabel("Key Size:"));
-        keySizeComboBox = new JComboBox<>(new String[]{"56"});
+        keySizeComboBox = new JComboBox<>(new String[]{"128", "256", "448"});
         configPanel.add(keySizeComboBox);
 
         add(configPanel, BorderLayout.NORTH);
 
-        //proces for tab text and file use tabpane
+        //process forr tab text and file use tabpane
         JTabbedPane tabbedPane = new JTabbedPane();
+
 
         // for text
         JPanel textTab = new JPanel(new BorderLayout(10, 10));
@@ -146,6 +149,7 @@ public class DESPanel extends JPanel {
         textIv.setEnabled(false);
         fileIv.setEnabled(false);
     }
+
 
     public JComboBox<String> getModeComboBox() {
         return modeComboBox;

@@ -58,4 +58,7 @@ public class SymmetricsPanel extends JPanel {
     public AESPanel getAesPanel() {
         return aesPanel;
     }
+    public DESPanel getDesPanel() {
+        return desPanel;
+    }
 }
