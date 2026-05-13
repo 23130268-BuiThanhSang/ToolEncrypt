@@ -1,11 +1,7 @@
 package vn.edu.hcmuaf.fit.View;
 
-import vn.edu.hcmuaf.fit.Controller.AffineController;
-import vn.edu.hcmuaf.fit.Controller.CaesarController;
-import vn.edu.hcmuaf.fit.Controller.VigenereController;
-import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.AffinePanel;
-import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.CaesarPanel;
-import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.VigenerePanel;
+import vn.edu.hcmuaf.fit.Controller.*;
+import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,6 +83,15 @@ public class MainView extends JFrame {
         AffineController affineController = new AffineController(affinePannel, classicalPanel);
         VigenerePanel vigenerePanel = classicalPanel.getVigenerePanel();
         VigenereController vigenereController = new VigenereController(vigenerePanel,classicalPanel);
+        SubstitutionPanel substitutionPanel = classicalPanel.getSubstitutionPanel();
+        SubstitutionController substitutionController = new SubstitutionController(substitutionPanel, classicalPanel);
+        HillPanel hillPanel = classicalPanel.getHillPanel();
+        HillController hillController = new HillController(hillPanel, classicalPanel);
+        TranspositionPanel transpositionPanel = classicalPanel.getTranspositionPanel();
+        TranspositionController transpositionController = new TranspositionController(transpositionPanel, classicalPanel);
+
+
+
 
         setVisible(true);
     }
