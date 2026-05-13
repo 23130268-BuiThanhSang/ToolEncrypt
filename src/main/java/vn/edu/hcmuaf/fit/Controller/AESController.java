@@ -14,7 +14,7 @@ public class AESController {
     private AESCipher model;
     private AESPanel view;
 
-    public AESController(AESPanel view, SymmetricsPanel parent) {
+    public AESController(AESPanel view) {
         this.model = new AESCipher();
         this.view = view;
 

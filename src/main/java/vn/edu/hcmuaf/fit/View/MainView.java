@@ -93,7 +93,7 @@ public class MainView extends JFrame {
         TranspositionController transpositionController = new TranspositionController(transpositionPanel, classicalPanel);
         // modern symmetrics algorithm
         AESPanel aesPanel = symmetricsPanel.getAesPanel();
-        AESController aesController = new AESController(aesPanel, symmetricsPanel);
+        AESController aesController = new AESController(aesPanel);
 
 
 
