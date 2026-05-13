@@ -1,8 +1,6 @@
 package vn.edu.hcmuaf.fit.View;
 
-import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.AffinePanel;
-import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.CaesarPanel;
-import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.VigenerePanel;
+import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +15,9 @@ public class ClassicalPanel extends JPanel {
     private CaesarPanel caesarPanel;
     private AffinePanel affinePanel;
     private VigenerePanel vigenerePanel;
+    private SubstitutionPanel substitutionPanel;
+    private HillPanel hillPanel;
+    private TranspositionPanel transpositionPanel;
 
     public ClassicalPanel() {
         setLayout(new BorderLayout());
@@ -44,7 +45,7 @@ public class ClassicalPanel extends JPanel {
         // process for choose algorithm
         subTopChooseAlgorithmPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         labelalgorithm = new JLabel("Choose algorithm");
-        String [] algrorithmClassical = {"Caesar", "Affine","Vigenere"};
+        String [] algrorithmClassical = {"Caesar", "Affine","Vigenere","Substitution","Hill","Transposition"};
         algorithmComboBox = new JComboBox<>(algrorithmClassical);
         subTopChooseAlgorithmPanel.add(labelalgorithm);
         subTopChooseAlgorithmPanel.add(algorithmComboBox);
@@ -61,13 +62,17 @@ public class ClassicalPanel extends JPanel {
         caesarPanel = new CaesarPanel();
         affinePanel = new AffinePanel();
         vigenerePanel = new VigenerePanel();
+        substitutionPanel = new SubstitutionPanel();
+        hillPanel = new HillPanel();
+        transpositionPanel = new TranspositionPanel();
 
 
         subPannell.add(caesarPanel, "Caesar");
         subPannell.add(affinePanel, "Affine");
         subPannell.add(vigenerePanel, "Vigenere");
-
-
+        subPannell.add(substitutionPanel, "Substitution");
+        subPannell.add(hillPanel, "Hill");
+        subPannell.add(transpositionPanel, "Transposition");
 
 
         add(subPannell,BorderLayout.CENTER);
@@ -90,5 +95,14 @@ public class ClassicalPanel extends JPanel {
     }
     public VigenerePanel getVigenerePanel() {
         return vigenerePanel;
+    }
+    public SubstitutionPanel getSubstitutionPanel() {
+        return substitutionPanel;
+    }
+    public HillPanel getHillPanel() {
+            return hillPanel;
+    }
+    public TranspositionPanel getTranspositionPanel() {
+            return transpositionPanel;
     }
 }
