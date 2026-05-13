@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.View;
 
 import vn.edu.hcmuaf.fit.Controller.*;
 import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.AESPanel;
+import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.DESPanel;
 import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.*;
 
 import javax.swing.*;
@@ -94,7 +95,8 @@ public class MainView extends JFrame {
         // modern symmetrics algorithm
         AESPanel aesPanel = symmetricsPanel.getAesPanel();
         AESController aesController = new AESController(aesPanel);
-
+        DESPanel desPanel = symmetricsPanel.getDesPanel();
+        DESController desController = new DESController(desPanel);
 
 
         setVisible(true);

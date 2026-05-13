@@ -6,8 +6,6 @@ import java.awt.*;
 public class AESPanel extends JPanel {
 
     private JComboBox<String> modeComboBox, paddingComboBox, keySizeComboBox;
-
-    // Cac component cho Tab Text
     private JTextArea textInput, textOutput;
     private JTextField textKey, textIv, sourceFile, destFile, fileKey, fileIv;
     private JButton genKeyTextBtn, importKeyTextBtn, exportKeyTextBtn,encryptTextBtn, decryptTextBtn, loadTextFileBtn, clearTextBtn;
