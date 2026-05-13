@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.View;
 
 import vn.edu.hcmuaf.fit.Controller.*;
+import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.AESPanel;
 import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.*;
 
 import javax.swing.*;
@@ -77,6 +78,7 @@ public class MainView extends JFrame {
         /**
          * - connect view to controller for classical algorithm
          */
+        // classical algorithm
         CaesarPanel caesarPanel = classicalPanel.getCaesarPanel();
         CaesarController caesarController = new CaesarController(caesarPanel, classicalPanel);
         AffinePanel affinePannel = classicalPanel.getAffinePanel();
@@ -89,7 +91,9 @@ public class MainView extends JFrame {
         HillController hillController = new HillController(hillPanel, classicalPanel);
         TranspositionPanel transpositionPanel = classicalPanel.getTranspositionPanel();
         TranspositionController transpositionController = new TranspositionController(transpositionPanel, classicalPanel);
-
+        // modern symmetrics algorithm
+        AESPanel aesPanel = symmetricsPanel.getAesPanel();
+        AESController aesController = new AESController(aesPanel);
 
 
 
