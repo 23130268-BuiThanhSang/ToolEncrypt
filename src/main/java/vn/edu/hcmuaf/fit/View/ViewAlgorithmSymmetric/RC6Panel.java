@@ -3,17 +3,17 @@ package vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric;
 import javax.swing.*;
 import java.awt.*;
 
-public class BlowfishPanel extends JPanel {
+public class RC6Panel extends JPanel {
 
     private JComboBox<String> modeComboBox, paddingComboBox, keySizeComboBox;
     private JTextArea textInput, textOutput;
     private JTextField textKey, textIv, sourceFile, destFile, fileKey, fileIv;
-    private JButton genKeyTextBtn, importKeyTextBtn, exportKeyTextBtn,encryptTextBtn, decryptTextBtn, loadTextFileBtn, clearTextBtn;
+    private JButton genKeyTextBtn, importKeyTextBtn, exportKeyTextBtn, encryptTextBtn, decryptTextBtn, loadTextFileBtn, clearTextBtn;
     private JButton browseSourceBtn, browseDestBtn;
     private JButton encryptFileBtn, decryptFileBtn, clearFileBtn;
     private JButton genKeyFileBtn, importKeyFileBtn, exportKeyFileBtn;
 
-    public BlowfishPanel() {
+    public RC6Panel() {
         setLayout(new BorderLayout(10, 10));
 
         // process choose mode, padđing, keysize
@@ -26,16 +26,14 @@ public class BlowfishPanel extends JPanel {
         paddingComboBox = new JComboBox<>(new String[]{"PKCS5Padding", "ISO10126Padding"});
         configPanel.add(paddingComboBox);
 
-
         configPanel.add(new JLabel("Key Size:"));
-        keySizeComboBox = new JComboBox<>(new String[]{"128", "256", "448"});
+        keySizeComboBox = new JComboBox<>(new String[]{"128", "192", "256"});
         configPanel.add(keySizeComboBox);
 
         add(configPanel, BorderLayout.NORTH);
 
         //process forr tab text and file use tabpane
         JTabbedPane tabbedPane = new JTabbedPane();
-
 
         // for text
         JPanel textTab = new JPanel(new BorderLayout(10, 10));
@@ -148,7 +146,6 @@ public class BlowfishPanel extends JPanel {
         textIv.setEnabled(false);
         fileIv.setEnabled(false);
     }
-
 
     public JComboBox<String> getModeComboBox() {
         return modeComboBox;

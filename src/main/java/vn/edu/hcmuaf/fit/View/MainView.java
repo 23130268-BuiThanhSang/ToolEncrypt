@@ -1,12 +1,12 @@
 package vn.edu.hcmuaf.fit.View;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import vn.edu.hcmuaf.fit.Controller.*;
-import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.AESPanel;
-import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.DESPanel;
+import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.*;
 import vn.edu.hcmuaf.fit.View.ViewAlgrorithmClassical.*;
-
 import javax.swing.*;
 import java.awt.*;
+import java.security.Security;
 
 public class MainView extends JFrame {
     private JPanel cards;
@@ -30,7 +30,7 @@ public class MainView extends JFrame {
         exitMenu = new JMenu("Exit");
         homeItem = new JMenuItem("Home");
         classicalItem = new JMenuItem("Classical");
-        symmetricsItem = new JMenuItem("Symmetrics");
+        symmetricsItem = new JMenuItem("Modern Symmetrics");
         asymmetricsItem = new JMenuItem("Asymmetrics");
         hashItem = new JMenuItem("Hash");
         exitItem = new JMenuItem("comfirm exit");
@@ -97,6 +97,19 @@ public class MainView extends JFrame {
         AESController aesController = new AESController(aesPanel);
         DESPanel desPanel = symmetricsPanel.getDesPanel();
         DESController desController = new DESController(desPanel);
+        BlowfishPanel blowfishPanel = symmetricsPanel.getBlowfishPanel();
+        BlowfishController blowfishController = new BlowfishController(blowfishPanel);
+        RC2Panel rc2Panel = symmetricsPanel.getRc2Panel();
+        RC2Controller rc2Controller = new RC2Controller(rc2Panel);
+        DESedePanel dESedePanel = symmetricsPanel.getTripleDESPanel();
+        DESedeController deSedeController = new DESedeController(dESedePanel);
+        // modern symmetrics algrorithm java not support
+        SerpentPanel serpentPanel = symmetricsPanel.getSerpentPanel();
+        SerpentController serpentController = new SerpentController(serpentPanel);
+        RC6Panel rc6Panel = symmetricsPanel.getRc6Panel();
+        RC6Controller rc6Controller = new RC6Controller(rc6Panel);
+
+
 
 
         setVisible(true);
@@ -108,6 +121,7 @@ public class MainView extends JFrame {
     }
 
     public static void main(String[] args) {
+        Security.addProvider(new BouncyCastleProvider());
         new MainView();
     }
 }

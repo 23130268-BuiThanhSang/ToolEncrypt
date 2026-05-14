@@ -11,12 +11,12 @@ import java.io.FileOutputStream;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-public class BlowfishCipher {
+public class RC6Cipher {
 
     // process encrypt for text
     public String encryptText(String plaintText, String mode, String padding, String strkey, String striv) throws Exception {
-        String transformation = "Blowfish/" + mode + "/" + padding;
-        Cipher cipher = Cipher.getInstance(transformation);
+        String transformation = "RC6/" + mode + "/" + padding;
+        Cipher cipher = Cipher.getInstance(transformation, "BC");
         SecretKey secretKey = getSecretKeyFromString(strkey);
         if (mode.equals("ECB")) {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
@@ -30,10 +30,9 @@ public class BlowfishCipher {
 
     // process decrypt for text
     public String decryptText(String cipherText, String mode, String padding, String strkey, String striv) throws Exception {
-        String transformation = "Blowfish/" + mode + "/" + padding;
-        Cipher cipher = Cipher.getInstance(transformation);
+        String transformation = "RC6/" + mode + "/" + padding;
+        Cipher cipher = Cipher.getInstance(transformation, "BC");
         SecretKey secretKey = getSecretKeyFromString(strkey);
-
 
         if (mode.equals("ECB")) {
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
@@ -48,10 +47,9 @@ public class BlowfishCipher {
 
     // process encrypt for file
     public void encryptFile(String sourceFile, String destFile, String mode, String padding, String strkey, String striv) throws Exception {
-        String transformation = "Blowfish/" + mode + "/" + padding;
-        Cipher cipher = Cipher.getInstance(transformation);
+        String transformation = "RC6/" + mode + "/" + padding;
+        Cipher cipher = Cipher.getInstance(transformation, "BC");
         SecretKey secretKey = getSecretKeyFromString(strkey);
-
 
         if (mode.equals("ECB")) {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
@@ -60,12 +58,9 @@ public class BlowfishCipher {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
         }
 
-
         FileInputStream fis = new FileInputStream(sourceFile);
         FileOutputStream fos = new FileOutputStream(destFile);
         CipherOutputStream cos = new CipherOutputStream(fos, cipher);
-
-
 
         byte[] buffer = new byte[4096];
         int bytesRead;
@@ -80,10 +75,9 @@ public class BlowfishCipher {
 
     // process decrypt for file
     public void decryptFile(String sourceFile, String destFile, String mode, String padding, String strkey, String striv) throws Exception {
-        String transformation = "Blowfish/" + mode + "/" + padding;
-        Cipher cipher = Cipher.getInstance(transformation);
+        String transformation = "RC6/" + mode + "/" + padding;
+        Cipher cipher = Cipher.getInstance(transformation, "BC");
         SecretKey secretKey = getSecretKeyFromString(strkey);
-
 
         if (mode.equals("ECB")) {
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
@@ -125,7 +119,7 @@ public class BlowfishCipher {
 
     // procewss for generate key
     public String generateKey(int keySize) throws Exception {
-        KeyGenerator keyGen = KeyGenerator.getInstance("Blowfish");
+        KeyGenerator keyGen = KeyGenerator.getInstance("RC6", "BC");
         keyGen.init(keySize);
 
         SecretKey secretKey = keyGen.generateKey();
@@ -134,7 +128,7 @@ public class BlowfishCipher {
 
     // process for generate IV
     public String generateIV() {
-        byte[] ivBytes = new byte[8];
+        byte[] ivBytes = new byte[16];
         SecureRandom random = new SecureRandom();
         random.nextBytes(ivBytes);
         return Base64.getEncoder().encodeToString(ivBytes);
@@ -142,7 +136,7 @@ public class BlowfishCipher {
 
     private SecretKey getSecretKeyFromString(String strkey) {
         byte[] decodedKey = Base64.getDecoder().decode(strkey);
-        return new SecretKeySpec(decodedKey, 0, decodedKey.length, "Blowfish");
+        return new SecretKeySpec(decodedKey, 0, decodedKey.length, "RC6");
     }
 
     private IvParameterSpec getIvFromString(String striv) {

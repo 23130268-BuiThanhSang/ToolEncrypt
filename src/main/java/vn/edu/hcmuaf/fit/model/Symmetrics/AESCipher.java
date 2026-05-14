@@ -66,7 +66,6 @@ public class AESCipher {
         CipherOutputStream cos = new CipherOutputStream(fos, cipher);
 
 
-
         byte[] buffer = new byte[4096];
         int bytesRead;
         while ((bytesRead = fis.read(buffer)) != -1) {
@@ -92,19 +91,35 @@ public class AESCipher {
             cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
         }
 
-         FileInputStream fis = new FileInputStream(sourceFile);
+        FileInputStream fis = new FileInputStream(sourceFile);
         FileOutputStream fos = new FileOutputStream(destFile);
-        CipherOutputStream cos = new CipherOutputStream(fos, cipher);
-
+        // note Bui Thanh Sang: because CipherOutputStream  will not throw exception util close and inform sucessful. this is wrong in java
+//        CipherOutputStream cos = new CipherOutputStream(fos, cipher);
+//
+//        byte[] buffer = new byte[4096];
+//        int bytesRead;
+//
+//        while ((bytesRead = fis.read(buffer)) != -1) {
+//            cos.write(buffer, 0, bytesRead);
+//        }
+//
+//
+//        cos.close();
         byte[] buffer = new byte[4096];
         int bytesRead;
 
         while ((bytesRead = fis.read(buffer)) != -1) {
-            cos.write(buffer, 0, bytesRead);
+            byte[] output = cipher.update(buffer, 0, bytesRead);
+            if (output != null) {
+                fos.write(output);
+            }
         }
 
-        cos.close();
-         fos.close();
+        byte[] finalBytes = cipher.doFinal();
+        if (finalBytes != null) {
+            fos.write(finalBytes);
+        }
+        fos.close();
         fis.close();
     }
 
