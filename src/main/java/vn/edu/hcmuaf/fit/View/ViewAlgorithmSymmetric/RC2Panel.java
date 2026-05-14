@@ -3,7 +3,7 @@ package vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric;
 import javax.swing.*;
 import java.awt.*;
 
-public class BlowfishPanel extends JPanel {
+public class RC2Panel extends JPanel {
 
     private JComboBox<String> modeComboBox, paddingComboBox, keySizeComboBox;
     private JTextArea textInput, textOutput;
@@ -13,7 +13,7 @@ public class BlowfishPanel extends JPanel {
     private JButton encryptFileBtn, decryptFileBtn, clearFileBtn;
     private JButton genKeyFileBtn, importKeyFileBtn, exportKeyFileBtn;
 
-    public BlowfishPanel() {
+    public RC2Panel() {
         setLayout(new BorderLayout(10, 10));
 
         // process choose mode, padđing, keysize
@@ -28,7 +28,7 @@ public class BlowfishPanel extends JPanel {
 
 
         configPanel.add(new JLabel("Key Size:"));
-        keySizeComboBox = new JComboBox<>(new String[]{"128", "256", "448"});
+        keySizeComboBox = new JComboBox<>(new String[]{"64", "128"});
         configPanel.add(keySizeComboBox);
 
         add(configPanel, BorderLayout.NORTH);

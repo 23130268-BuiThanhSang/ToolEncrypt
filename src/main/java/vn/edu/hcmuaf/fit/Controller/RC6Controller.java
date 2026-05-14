@@ -1,7 +1,7 @@
 package vn.edu.hcmuaf.fit.Controller;
 
-import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.BlowfishPanel;
-import vn.edu.hcmuaf.fit.model.Symmetrics.BlowfishCipher;
+import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.RC6Panel;
+import vn.edu.hcmuaf.fit.model.Symmetrics.RC6Cipher;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -9,12 +9,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-public class BlowfishController {
-    private BlowfishCipher model;
-    private BlowfishPanel view;
+public class RC6Controller {
+    private RC6Cipher model;
+    private RC6Panel view;
 
-    public BlowfishController(BlowfishPanel view) {
-        this.model = new BlowfishCipher();
+    public RC6Controller(RC6Panel view) {
+        this.model = new RC6Cipher();
         this.view = view;
 
         handleTextEvents();
@@ -225,6 +225,7 @@ public class BlowfishController {
                 showError("Lỗi tạo khóa!");
             }
         });
+
         // process for import key File
         view.getImportKeyFileBtn().addActionListener(e -> {
             JFileChooser chooser = new JFileChooser();
@@ -261,7 +262,7 @@ public class BlowfishController {
             }
         });
 
-        // process for clear file
+        // process for clear File
         view.getClearFileBtn().addActionListener(e -> {
             view.getSourceFile().setText("");
             view.getDestFile().setText("");

@@ -1,7 +1,7 @@
 package vn.edu.hcmuaf.fit.Controller;
 
-import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.BlowfishPanel;
-import vn.edu.hcmuaf.fit.model.Symmetrics.BlowfishCipher;
+import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.SerpentPanel;
+import vn.edu.hcmuaf.fit.model.Symmetrics.SerpentCipher;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -9,12 +9,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-public class BlowfishController {
-    private BlowfishCipher model;
-    private BlowfishPanel view;
+public class SerpentController {
+    private SerpentCipher model;
+    private SerpentPanel view;
 
-    public BlowfishController(BlowfishPanel view) {
-        this.model = new BlowfishCipher();
+    public SerpentController(SerpentPanel view) {
+        this.model = new SerpentCipher();
         this.view = view;
 
         handleTextEvents();
@@ -261,7 +261,7 @@ public class BlowfishController {
             }
         });
 
-        // process for clear file
+        // process for clear File
         view.getClearFileBtn().addActionListener(e -> {
             view.getSourceFile().setText("");
             view.getDestFile().setText("");

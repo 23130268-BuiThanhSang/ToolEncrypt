@@ -1,7 +1,7 @@
 package vn.edu.hcmuaf.fit.Controller;
 
-import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.BlowfishPanel;
-import vn.edu.hcmuaf.fit.model.Symmetrics.BlowfishCipher;
+import vn.edu.hcmuaf.fit.View.ViewAlgorithmSymmetric.RC2Panel;
+import vn.edu.hcmuaf.fit.model.Symmetrics.RC2Cipher;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -9,12 +9,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-public class BlowfishController {
-    private BlowfishCipher model;
-    private BlowfishPanel view;
+public class RC2Controller {
+    private RC2Cipher model;
+    private RC2Panel view;
 
-    public BlowfishController(BlowfishPanel view) {
-        this.model = new BlowfishCipher();
+    public RC2Controller(RC2Panel view) {
+        this.model = new RC2Cipher();
         this.view = view;
 
         handleTextEvents();

@@ -207,7 +207,7 @@ public class DESController {
                 model.decryptFile(source, dest, mode, padding, strkey, striv);
                 JOptionPane.showMessageDialog(null, "Giải mã File thành công!");
             } catch (Exception ex) {
-                showError("Lỗi giải mã File!");
+                showError("Lỗi giải mã File: Key của bạn bị sai dữ liệu bị hỏng!");
             }
         });
 

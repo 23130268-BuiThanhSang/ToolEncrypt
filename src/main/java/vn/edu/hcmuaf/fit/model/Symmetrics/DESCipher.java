@@ -90,15 +90,30 @@ public class DESCipher {
 
         FileInputStream fis = new FileInputStream(sourceFile);
         FileOutputStream fos = new FileOutputStream(destFile);
-        CipherOutputStream cos = new CipherOutputStream(fos, cipher);
-
+        // note Bui Thanh Sang: because CipherOutputStream  will not throw exception util close and inform sucessful. this is wrong in java
+//        CipherOutputStream cos = new CipherOutputStream(fos, cipher);
+//
+//        byte[] buffer = new byte[4096];
+//        int bytesRead;
+//        while ((bytesRead = fis.read(buffer)) != -1) {
+//            cos.write(buffer, 0, bytesRead);
+//        }
+//
+//        cos.close();
         byte[] buffer = new byte[4096];
         int bytesRead;
+
         while ((bytesRead = fis.read(buffer)) != -1) {
-            cos.write(buffer, 0, bytesRead);
+            byte[] output = cipher.update(buffer, 0, bytesRead);
+            if (output != null) {
+                fos.write(output);
+            }
         }
 
-        cos.close();
+        byte[] finalBytes = cipher.doFinal();
+        if (finalBytes != null) {
+            fos.write(finalBytes);
+        }
         fos.close();
         fis.close();
     }
@@ -113,7 +128,6 @@ public class DESCipher {
 
     // process for generate IV
     public String generateIV() {
-        // IV DES 8 byte
         byte[] ivBytes = new byte[8];
         SecureRandom random = new SecureRandom();
         random.nextBytes(ivBytes);
