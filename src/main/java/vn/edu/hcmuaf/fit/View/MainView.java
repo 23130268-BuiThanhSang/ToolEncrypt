@@ -108,7 +108,8 @@ public class MainView extends JFrame {
         SerpentController serpentController = new SerpentController(serpentPanel);
         RC6Panel rc6Panel = symmetricsPanel.getRc6Panel();
         RC6Controller rc6Controller = new RC6Controller(rc6Panel);
-
+        // asymmetrics algorithm
+        RSAController rsaController = new RSAController(aSymmetricsPanel);
 
 
 
