@@ -110,8 +110,8 @@ public class MainView extends JFrame {
         RC6Controller rc6Controller = new RC6Controller(rc6Panel);
         // asymmetrics algorithm
         RSAController rsaController = new RSAController(aSymmetricsPanel);
-
-
+        // hash algorithm
+        HashController hashController = new HashController(hashPanel);
 
         setVisible(true);
     }
