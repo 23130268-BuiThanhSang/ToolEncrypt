@@ -113,6 +113,10 @@ public class MainView extends JFrame {
         // hash algorithm
         HashController hashController = new HashController(hashPanel);
 
+        // set lopcation center monitor
+        setLocationRelativeTo(null);
+
+
         setVisible(true);
     }
 

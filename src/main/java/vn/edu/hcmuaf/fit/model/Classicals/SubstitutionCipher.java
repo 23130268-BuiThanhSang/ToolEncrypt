@@ -173,7 +173,7 @@ public class SubstitutionCipher {
 
             int expectedLength = isVietnameseMode(language) ? VI_LOWER.length() : EN_LOWER.length();
 
-            // kiểm tra xem do dai 2 chuoi lower va upper co bang bang chu cai khong
+
             if (keys[0].length() != expectedLength || keys[1].length() != expectedLength) {
                 return false;
             }

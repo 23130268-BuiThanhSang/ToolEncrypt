@@ -50,7 +50,7 @@ public class VigenerePanel extends JPanel {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         encryptButton = new JButton("Encrypt");
         decryptButton = new JButton("Decrypt");
-        loadFileButton = new JButton("Load File");
+        loadFileButton = new JButton("Load File .txt" );
         clearButton = new JButton("Clear");
 
         buttonPanel.add(encryptButton);

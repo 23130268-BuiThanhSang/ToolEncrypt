@@ -229,8 +229,7 @@ public class AffineController {
     private void showError(String msg) {
         JOptionPane.showMessageDialog(null, msg);
     }
-    //
-      // validate input (nếu là tiếng anh thì không được chứa ký tự tiếng việt )
+
     private boolean validateInPut(String plaintText, String languege) {
         if (languege.equalsIgnoreCase("English")) {
             for(char c : plaintText.toCharArray()) {

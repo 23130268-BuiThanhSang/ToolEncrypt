@@ -45,9 +45,14 @@ public class HillCipher {
             }
         }
 
+        boolean isPadded = false;
         if (cleanText.length() % 2 != 0) {
             cleanText.append(lowerAlpha.charAt(0));
+            isPadded = true;
         }
+
+
+
 
         StringBuilder cipherClean = new StringBuilder();
         for (int i = 0; i < cleanText.length(); i += 2) {
@@ -81,11 +86,29 @@ public class HillCipher {
             result.append(cipherClean.charAt(index));
         }
 
+
+
+        if (isPadded) {
+            result.append('\u200B');
+        }
+
         return result.toString();
     }
 
     // process decrypt for text
     public String decrypt(String cipherText, String language, String keyStr) {
+
+        boolean isPadded = false;
+        if (cipherText != null && cipherText.contains("\u200B")) {
+            isPadded = true;
+            cipherText = cipherText.replace("\u200B", "");
+        }
+
+
+
+
+
+
         String lowerAlpha = isVietnameseMode(language) ? VI_LOWER : EN_LOWER;
         String upperAlpha = isVietnameseMode(language) ? VI_UPPER : EN_UPPER;
         int mod = lowerAlpha.length();
@@ -138,8 +161,15 @@ public class HillCipher {
         if (index < plainClean.length()) {
             result.append(plainClean.charAt(index));
         }
+        String finalResult = result.toString();
 
-        return result.toString();
+        if (isPadded) {
+            finalResult = finalResult.substring(0, finalResult.length() - 1);
+        }
+
+        return finalResult;
+
+
     }
 
     // process for check language mode
